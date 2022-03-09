@@ -1,11 +1,13 @@
 const express = require("express");
 const app = express()
-const invoiceRouter = require("./routes/invoices.route")
-const customerRouter = require("./routes/customers.route")
-const connection = require("./db");
+const connection = require("./config/db");
+const invoiceRouter = require("./src/routes/invoices.route")
+const customerRouter = require("./src/routes/customers.route")
 
 connection()
 app.use(express.json());
+
+// Routes
 app.use("/api", invoiceRouter);
 app.use("/api", customerRouter);
 

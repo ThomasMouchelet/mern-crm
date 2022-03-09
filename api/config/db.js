@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+require('dotenv').config()
 
 module.exports = async () => {
     try {
@@ -7,7 +8,7 @@ module.exports = async () => {
             useUnifiedTopology: true,
         };
         await mongoose.connect(
-            "mongodb://localhost:2717/todo-app",
+            process.env.DB_HOST,
             connectionParams
         );
         console.log("Connected to database.");
