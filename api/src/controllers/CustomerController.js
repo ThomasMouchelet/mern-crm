@@ -24,6 +24,14 @@ const CustomerController = {
         } catch (error) {
             res.send(error);
         }
+    },
+    delete: async (req, res) => {
+        try {
+            await Customer.deleteOne({"_id": req.params.id })
+            res.send(true);
+        } catch (error) {
+            res.send(error);
+        }
     }
 }
 

@@ -9,7 +9,7 @@ const invoiceSchema = new Schema({
         type: Date,
         default: Date.now(),
     },
-    cutomer: {
+    customer: {
         type: mongoose.Schema.Types.ObjectId,
         ref:'Customer'
     }

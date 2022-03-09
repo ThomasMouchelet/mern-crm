@@ -1,13 +1,12 @@
 const Invoice = require('../models/Invoice')
-const Customer = require('../models/Customer')
+const Customer = require('../models/Customer');
+const req = require('express/lib/request');
 
 const InvoiceController = {
     create: async (req, res) => {
         customer = req.body.customer;
         id = customer.id;
-        console.log("--customer : ", customer)
         const customerById = await Customer.findById(id);
-        console.log("--customerById : ", customerById)
         
         try {
             const { amount, createdAt } = req.body;
@@ -36,8 +35,19 @@ const InvoiceController = {
     findOne: async (req, res) => {
         try {
             const invoice = await Invoice.findById(req.params.id);
-            console.log("--invoice : ", invoice)
+            const customerId = invoice.customer.valueOf()
+            const customer = await Customer.findById(customerId)
+            
+            invoice.customer = await customer
             res.send(invoice);
+        } catch (error) {
+            res.send(error);
+        }
+    },
+    delete: async (req, res) => {
+        try {
+            await Invoice.deleteOne({"_id": req.params.id })
+            res.send(true);
         } catch (error) {
             res.send(error);
         }
